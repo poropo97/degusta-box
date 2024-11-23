@@ -1,0 +1,35 @@
+# src/Infrastructure/Persistence/Doctrine/Mappings/Task.orm.yaml
+
+App\Domain\Entity\Task:
+    type: entity
+    table: tasks
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 100
+    manyToOne:
+        user:
+            targetEntity: App\Domain\Entity\User
+            inversedBy: tasks
+            joinColumn:
+                name: user_id
+                referencedColumnName: id
+                nullable: false
+    oneToMany:
+        timeEntries:
+            targetEntity: App\Domain\Entity\TimeEntry
+            mappedBy: task
+            cascade: [persist, remove]
+    fields:
+        createdAt:
+            type: datetime_immutable
+            column: created_at
+        finishedAt:
+            type: datetime
+            column: finished_at
+            nullable: true

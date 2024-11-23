@@ -1,0 +1,33 @@
+
+App\Domain\Entity\User:
+    type: entity
+    table: users
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        username:
+            type: string
+            length: 100
+            unique: true
+        email:
+            type: string
+            length: 180
+            unique: true
+        password:
+            type: string
+            length: 255
+        createdAt:
+            type: datetime_immutable
+            column: created_at
+        finishedAt:
+            type: datetime
+            column: finished_at
+            nullable: true
+    oneToMany:
+        tasks:
+            targetEntity: App\Domain\Entity\Task
+            mappedBy: user
+            cascade: [persist, remove]

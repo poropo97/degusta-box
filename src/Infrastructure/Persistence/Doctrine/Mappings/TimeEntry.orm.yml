@@ -1,0 +1,27 @@
+App\Domain\Entity\TimeEntry:
+    type: entity
+    table: time_entries
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        startTime:
+            type: datetime_immutable
+            column: start_time
+        finishedAt:
+            type: datetime_immutable
+            nullable: true
+            column: finished_at
+        createdAt:
+            type: datetime_immutable
+            column: created_at
+    manyToOne:
+        task:
+            targetEntity: App\Domain\Entity\Task
+            inversedBy: timeEntries
+            joinColumn:
+                name: task_id
+                referencedColumnName: id
+                nullable: false

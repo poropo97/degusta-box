@@ -1,0 +1,20 @@
+# config/packages/doctrine.yaml
+
+doctrine:
+    dbal:
+        url: '%env(resolve:DATABASE_URL)%'
+
+    orm:
+        default_entity_manager: default
+        auto_generate_proxy_classes: true
+        enable_lazy_ghost_objects: true
+        entity_managers:
+            default:
+                connection: default
+                mappings:
+                    Domain:
+                        type: yml
+                        is_bundle: false
+                        dir: '%kernel.project_dir%/src/Infrastructure/Persistence/Doctrine/Mappings'
+                        prefix: 'App\Domain\Entity'
+                        alias: Domain
